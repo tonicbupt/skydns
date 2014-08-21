@@ -190,6 +190,8 @@ func (s *server) ServeDNS(w dns.ResponseWriter, req *dns.Msg) {
 		s.config.log.Infof("received DNS Request for %q from %q with type %d", q.Name, w.RemoteAddr(), q.Qtype)
 	}
 	// If the qname is local.dns.skydns.local. and s.config.Local != "", substitute that name.
+	fmt.Printf(name, s.config)
+	fmt.Printf(q)
 	if s.config.Local != "" && name == s.config.localDomain {
 		name = s.config.Local
 	}
@@ -316,6 +318,7 @@ func (s *server) ServeDNS(w dns.ResponseWriter, req *dns.Msg) {
 		m.Extra = append(m.Extra, extra...)
 	case dns.TypeA, dns.TypeAAAA:
 		records, err := s.AddressRecords(q, name, nil)
+		fmt.Printf(records)
 		if err != nil {
 			if e, ok := err.(*etcd.EtcdError); ok {
 				if e.ErrorCode == 100 {
