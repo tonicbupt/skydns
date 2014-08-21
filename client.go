@@ -29,7 +29,7 @@ func NewClient(machines []string) (client *etcd.Client) {
 		client.SyncCluster()
 	} else {
 		client = etcd.NewClient(machines)
-		client.SyncCluster()
+		//client.SyncCluster()
 		fmt.Println(client)
 	}
 	return client
