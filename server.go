@@ -400,6 +400,7 @@ func (s *server) ServeDNS(w dns.ResponseWriter, req *dns.Msg) {
 func (s *server) AddressRecords(q dns.Question, name string, previousRecords []dns.RR) (records []dns.RR, err error) {
 	path, star := msg.PathWithWildcard(name)
 	r, err := get(s.client, path, true)
+	fmt.Println(r, "    ---------    ", err)
 	if err != nil {
 		return nil, err
 	}

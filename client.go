@@ -5,6 +5,7 @@
 package main
 
 import (
+	"fmt"
 	"log"
 	"net/url"
 	"strings"
@@ -26,6 +27,7 @@ func NewClient(machines []string) (client *etcd.Client) {
 		}
 		client.SyncCluster()
 	} else {
+		fmt.Println(client)
 		client = etcd.NewClient(machines)
 		client.SyncCluster()
 	}
@@ -70,6 +72,8 @@ func (s *server) UpdateClient(resp *etcd.Response) {
 func get(client *etcd.Client, path string, recursive bool) (*etcd.Response, error) {
 	resp, err, _ := etcdInflight.Do(path, func() (*etcd.Response, error) {
 		r, e := client.Get(path, false, recursive)
+		fmt.Println("client.go  r  ", r)
+		fmt.Println("client.go  e  ", e)
 		if e != nil {
 			return nil, e
 		}
