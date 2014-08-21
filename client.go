@@ -15,6 +15,7 @@ import (
 
 func NewClient(machines []string) (client *etcd.Client) {
 	// set default if not specified in env
+	fmt.Println(machines)
 	if len(machines) == 1 && machines[0] == "" {
 		machines[0] = "http://127.0.0.1:4001"
 	}
@@ -27,9 +28,9 @@ func NewClient(machines []string) (client *etcd.Client) {
 		}
 		client.SyncCluster()
 	} else {
-		fmt.Println(client)
 		client = etcd.NewClient(machines)
 		client.SyncCluster()
+		fmt.Println(client)
 	}
 	return client
 }
